@@ -36,7 +36,7 @@ Contents
 
 .. toctree::
    :maxdepth: 2
-   :caption: API Reference
+   :caption: Module Documentation
 
    reference/landcover_pipeline
    reference/landcover_composite_pipeline
