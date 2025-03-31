@@ -25,8 +25,8 @@ extensions = [
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autosummary',
-    'sphinx.ext.intersphinx'
-    'sphiinx_rtd_theme'
+    'sphinx.ext.intersphinx',
+    'sphinx_rtd_theme'
 ]
 
 intersphinx_mapping = {
