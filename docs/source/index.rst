@@ -19,7 +19,30 @@ Contents
 --------
 .. toctree::
 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting Started
+
    Overview
    How-To Guides
-   
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorials
+
+   tutorials/tutorial1
+   tutorials/tutorial2
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   reference/landcover_pipeline
+   reference/landcover_composite_pipeline
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contributing
+
+   contributing
