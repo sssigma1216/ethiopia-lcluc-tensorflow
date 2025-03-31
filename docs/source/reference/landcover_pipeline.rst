@@ -6,7 +6,3 @@ Landcover Pipeline
 .. autosummary::
    :toctree: generated/
    :nosignatures:
-
-   function_one
-   ClassOne
-   some_utility
