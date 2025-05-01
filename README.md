@@ -43,7 +43,7 @@ ssh adaptlogin.nccs.nasa.gov
 ssh gpulogin1
 ```
 
-3. Clone above-shrubs repository
+3. Clone repository
 
 Clone the github:
 
