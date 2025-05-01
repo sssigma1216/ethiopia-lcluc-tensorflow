@@ -9,12 +9,10 @@ Ethiopia LCLUC Documentation
 Welcome to the documentation for the Ethiopia LCLUC project.
 
 .. note::
-	This project remains under active development.
+   This project remains under active development.
 
 Contents
 --------
-.. toctree::
-
 
 .. toctree::
    :maxdepth: 2
@@ -42,3 +40,24 @@ Contents
    :caption: Contributing
 
    contributing
+
+Project Links and Resources
+===========================
+
+**Organization & Group Resources**
+- `NASA GSFC Data Science Group`_: Home of the group contributing to this and other related Earth science data projects.
+- `NASA NCCS HPDA GitHub`_: Collection of open-source software, research code, and tutorials maintained by the High Performance Data Analytics group.
+
+**Project Repositories**
+- `Ethiopia LCLUC TensorFlow`_: Main repository for this project, including model training code and data processing tools.
+
+**Related Tools**
+- `VHR CloudMask GitHub`_: Python library for semantic segmentation of clouds in Very High Resolution (VHR) imagery.
+- `VHR CloudMask Documentation`_: Detailed usage and developer documentation for the cloud masking tool.
+
+.. _NASA GSFC Data Science Group: https://science.gsfc.nasa.gov/cisto/istr/
+.. _NASA NCCS HPDA GitHub: https://github.com/nasa-nccs-hpda
+.. _Ethiopia LCLUC TensorFlow: https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow
+.. _VHR CloudMask GitHub: https://github.com/nasa-nccs-hpda/vhr-cloudmask
+.. _VHR CloudMask Documentation: https://nasa-nccs-hpda.github.io/vhr-cloudmask/latest/readme.html#contributors
+
