@@ -6,10 +6,30 @@
 Ethiopia LCLUC Documentation
 ============================
 
-Welcome to the documentation for the Ethiopia LCLUC project.
+**Machine learning-powered LCLUC analysis for Ethiopia using WorldView imagery**
+
+Welcome to the documentation for the Ethiopia LCLUC project.  
+This library has been developed by the NASA GSFC Data Science Group (606.3) to serve as a unified, Python-based framework for processing very high resolution (VHR) remote sensing imagery. Focused on Ethiopia, this toolkit supports land cover land use change (LCLUC) analysis using WorldView imagery.
+
+The framework supports end-to-end workflows for compositing and validating land cover classification results derived from a range of machine learning models—including Random Forest, XGBoost, and convolutional neural networks (CNNs). These tools generate consistent, multi-year land cover composites from large-scale VHR imagery.
 
 .. note::
    This project remains under active development.
+
+Repository Features
+--------------------
+
+This library enables:
+
+- **Preprocessing** of WorldView imagery  
+- **Model training and inference** with ML/DL algorithms  
+- **Land cover prediction** using multiple classification models  
+- **Compositing** of results to create annual or multi-year representations  
+
+**Pipelines:**
+
+- **Land Cover Pipeline** – Produces GeoTIFF predictions from trained models  
+- **Compositing Pipeline** – Aggregates predictions to generate validated land cover composites  
 
 Contents
 --------
@@ -44,12 +64,11 @@ Contents
    contributing
 
 Project Links and Resources
-===========================
+----------------------------
 
 **Organization & Group Resources**
 
 - `NASA GSFC Data Science Group`_: Home of the group contributing to this and other related Earth science data projects.
-
   - `NASA NCCS HPDA GitHub`_: Collection of open-source software, research code, and tutorials maintained by the NASA GSFC Data Science Group.
 
 **Project Repositories**
@@ -67,3 +86,4 @@ Project Links and Resources
 .. _Very High Resolution (VHR) Composite Tool: https://github.com/nasa-nccs-hpda/vhr-composite
 .. _VHR CloudMask GitHub: https://github.com/nasa-nccs-hpda/vhr-cloudmask
 .. _documentation: https://nasa-nccs-hpda.github.io/vhr-cloudmask/latest/readme.html
+
