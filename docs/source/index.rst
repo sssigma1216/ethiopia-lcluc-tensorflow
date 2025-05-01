@@ -16,17 +16,19 @@ Contents
 
 .. toctree::
    :maxdepth: 1
-   :caption: Getting Started
+   :caption: Project Overview
 
-   Overview
-   How-To Guides
+   context/introduction
+   context/workflows
 
 .. toctree::
    :maxdepth: 1
    :caption: Tutorials
 
-   tutorials/tutorial1
-   tutorials/tutorial2
+   tutorials/quickstart
+   tutorials/composite
+   tutorials/qgis
+   tutorials/troubleshoot
 
 .. toctree::
    :maxdepth: 1
