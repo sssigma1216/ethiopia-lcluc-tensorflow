@@ -60,6 +60,25 @@ Getting Started
    module load singularity
 
 
+7) **Build the container environment using Singularity**
+
+   Containers package software and their dependencies into isolated environments to ensure consistent behavior across systems. On ADAPT, it is recommended to use the high-speed local scratch space (`/lscratch`) when building containers.
+
+   - First, create your personal directory in `/lscratch` (if it doesn't already exist). This storage is local to the compute node and temporary—files may be deleted after your job ends:
+
+     .. code-block:: bash
+
+        mkdir -p /lscratch/$USER
+
+   - Then, build the Ethiopia LCLUC TensorFlow container into a writable sandbox directory using Singularity:
+
+     .. code-block:: bash
+
+        singularity build --sandbox /lscratch/$USER/container/ethiopia-lcluc-tensorflow docker://nasanccs/ethiopia-lcluc-tensorflow:latest
+
+   This command pulls the latest container image from Docker Hub and builds it as a sandbox under your `lscratch` space.
+
+
 Bonus Tips
 ----------
 
