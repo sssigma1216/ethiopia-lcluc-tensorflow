@@ -45,14 +45,19 @@ Project Links and Resources
 ===========================
 
 **Organization & Group Resources**
+
 - `NASA GSFC Data Science Group`_: Home of the group contributing to this and other related Earth science data projects.
+
 - `NASA NCCS HPDA GitHub`_: Collection of open-source software, research code, and tutorials maintained by the High Performance Data Analytics group.
 
 **Project Repositories**
+
 - `Ethiopia LCLUC TensorFlow`_: Main repository for this project, including model training code and data processing tools.
 
 **Related Tools**
+
 - `VHR CloudMask GitHub`_: Python library for semantic segmentation of clouds in Very High Resolution (VHR) imagery.
+
 - `VHR CloudMask Documentation`_: Detailed usage and developer documentation for the cloud masking tool.
 
 .. _NASA GSFC Data Science Group: https://science.gsfc.nasa.gov/cisto/istr/
