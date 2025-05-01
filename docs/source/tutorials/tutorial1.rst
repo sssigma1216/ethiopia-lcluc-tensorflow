@@ -16,13 +16,13 @@ Getting Started
 
 
 3) **Request computational resources with Slurm** (see `NCCS guide to Slurm on ADAPT <https://www.nccs.nasa.gov/nccs-users/instructional/adapt-instructional/slurm>`_).  
-  For example, to request a quick interactive Slurm job:
+   For example, to request a quick interactive Slurm job:
 
-.. code-block:: bash
+   .. code-block:: bash
 
-   salloc -G1 -J composite-text -c 10
+      salloc -G1 -J composite-text -c 10
 
-which requests an interactive job (salloc), with 1 GPU (-G), a job name (-J) of "composite-text", and 10 CPU cores (-c). 
+   which requests an interactive job (`salloc`), with 1 GPU (`-G1`), a job name (`-J`) of "composite-text", and 10 CPU cores (`-c`).
 
 
 4) **Create personal directories to work within**:
