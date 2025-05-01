@@ -22,7 +22,7 @@ Getting Started
 
    salloc -G1 -J composite-text -c 10
 
-  which requests an interactive job (salloc), with 1 GPU (-G), a job name (-J) of "composite-text", and 10 CPU cores (-c). 
+which requests an interactive job (salloc), with 1 GPU (-G), a job name (-J) of "composite-text", and 10 CPU cores (-c). 
 
 
 4) **Create personal directories to work within**:
