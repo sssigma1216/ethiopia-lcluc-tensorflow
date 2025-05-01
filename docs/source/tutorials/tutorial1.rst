@@ -25,6 +25,7 @@ Getting Started
    which requests an interactive job (`salloc`), with 1 GPU (`-G1`), a job name (`-J`) of "composite-text", and 10 CPU cores (`-c`).
 
 
+
 4) **Create personal directories to work within**:
 
 - Confirm that the ``$USER`` environment variable is set to your username:
@@ -34,6 +35,7 @@ Getting Started
      echo $USER
 
   which should return your username.
+
 
 - Create a "development" directory:
 
