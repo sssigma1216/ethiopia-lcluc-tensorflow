@@ -7,11 +7,13 @@ Getting Started
 
    ssh user@adaptlogin.nasa.gov
 
+
 2) **Connect to PRISM GPU Cluster**
 
 .. code-block:: bash
 
    ssh gpulogin1
+
 
 3) **Request computational resources with Slurm** (see `NCCS guide to Slurm on ADAPT <https://www.nccs.nasa.gov/nccs-users/instructional/adapt-instructional/slurm>`_).  
    For example, to request a quick interactive Slurm job:
@@ -20,7 +22,8 @@ Getting Started
 
    salloc -G1 -J composite-text -c 10
 
-   which requests an interactive job (salloc), with 1 GPU (-G), a job name (-J) of "composite-text", and 10 CPU cores (-c). 
+  which requests an interactive job (salloc), with 1 GPU (-G), a job name (-J) of "composite-text", and 10 CPU cores (-c). 
+
 
 4) **Create personal directories to work within**:
 
@@ -38,18 +41,21 @@ Getting Started
 
      mkdir -p /explore/nobackup/people/$USER/development
 
+
 5) **Clone the GitHub repository**
 
 .. code-block:: bash
 
    cd /explore/nobackup/people/$USER/development  # Navigate to development folder
-   git clone https://github.com/nasa-nccs-hpda/senegal-lcluc-tensorflow
+   git clone https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow 
+
 
 6) **Load necessary module(s)**
 
 .. code-block:: bash
 
    module load singularity
+
 
 Bonus Tips
 ----------
@@ -66,3 +72,28 @@ Bonus Tips
 
      ssh -Y user@adaptlogin.nasa.gov
      ssh -Y gpulogin1
+
+- To keep processes running after disconnecting from the server (e.g., long-running jobs or scripts), use ``screen`` to create detachable terminal sessions:
+
+  .. code-block:: bash
+
+     screen             # Start a new screen session
+     [run your commands]
+     Ctrl+A, then D     # Detach from the session
+
+  Reconnect later with:
+
+  .. code-block:: bash
+
+     screen -r          # Reattach to your session
+
+  If ``screen`` is not installed, you can add it with:
+
+  .. code-block:: bash
+
+     sudo apt install screen    # On Debian/Ubuntu systems
+
+  Additional tips:
+  - Use ``screen -S session_name`` to name your session.
+  - List existing sessions with ``screen -ls``.
+  - Kill a session with ``screen -X -S session_name quit``.
