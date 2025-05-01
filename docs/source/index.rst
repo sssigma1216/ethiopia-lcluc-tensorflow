@@ -15,21 +15,21 @@ Contents
 --------
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Getting Started
 
    Overview
    How-To Guides
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Tutorials
 
    tutorials/tutorial1
    tutorials/tutorial2
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Module Documentation
 
    reference/landcover_pipeline
