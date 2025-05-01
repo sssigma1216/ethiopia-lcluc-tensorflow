@@ -16,7 +16,7 @@ Getting Started
 
 
 3) **Request computational resources with Slurm** (see `NCCS guide to Slurm on ADAPT <https://www.nccs.nasa.gov/nccs-users/instructional/adapt-instructional/slurm>`_).  
-   For example, to request a quick interactive Slurm job:
+  For example, to request a quick interactive Slurm job:
 
 .. code-block:: bash
 
