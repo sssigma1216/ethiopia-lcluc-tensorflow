@@ -53,6 +53,7 @@ Project Links and Resources
 **Project Repositories**
 
 - `Ethiopia LCLUC TensorFlow`_: Main repository for this project, including model training code and data processing tools.
+- `Very High Resolution (VHR) Composite Tool`_: Repository with tools aimed at generating gridded composite outputs from (VHR) land cover datasets.
 
 **Related Tools**
 
@@ -61,5 +62,6 @@ Project Links and Resources
 .. _NASA GSFC Data Science Group: https://science.gsfc.nasa.gov/cisto/istr/
 .. _NASA NCCS HPDA GitHub: https://github.com/nasa-nccs-hpda
 .. _Ethiopia LCLUC TensorFlow: https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow
+.. _Very High Resolution (VHR) Composite Tool: https://github.com/nasa-nccs-hpda/vhr-composite
 .. _VHR CloudMask GitHub: https://github.com/nasa-nccs-hpda/vhr-cloudmask
 .. _documentation: https://nasa-nccs-hpda.github.io/vhr-cloudmask/latest/readme.html

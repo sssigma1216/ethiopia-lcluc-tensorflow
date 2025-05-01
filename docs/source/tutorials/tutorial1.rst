@@ -42,12 +42,13 @@ Getting Started
      mkdir -p /explore/nobackup/people/$USER/development
 
 
-5) **Clone the GitHub repository**
+5) **Clone the necessart GitHub repositories**
 
 .. code-block:: bash
 
    cd /explore/nobackup/people/$USER/development  # Navigate to development folder
-   git clone https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow 
+   git clone https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow # Clone the Ethiopia LCLUC repository
+   git clone https://github.com/nasa-nccs-hpda/vhr-composite # Clone the VHR Composite tool repository
 
 
 6) **Load necessary module(s)**
@@ -77,15 +78,14 @@ Bonus Tips
 
   .. code-block:: bash
 
-     screen             # Start a new screen session
-     [run your commands]
-     Ctrl+A, then D     # Detach from the session
+     screen	# Start a new screen session
+     screen -d	# Detach screen session: Ends current ssh session but keeps processes running
 
   Reconnect later with:
 
   .. code-block:: bash
 
-     screen -r          # Reattach to your session
+     screen -r          # Reattach session
 
   If ``screen`` is not installed, you can add it with:
 
@@ -97,3 +97,5 @@ Bonus Tips
   - Use ``screen -S session_name`` to name your session.
   - List existing sessions with ``screen -ls``.
   - Kill a session with ``screen -X -S session_name quit``.
+ 
+ Full screen documentation can be found `here <https://www.gnu.org/software/screen/manual/screen.txt/>`_.
