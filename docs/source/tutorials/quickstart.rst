@@ -73,6 +73,12 @@ To use Singularity, first load the appropriate module:
 
    module load singularity
 
+.. note::
+
+   Singularity is a tool used to run containers—self-contained environments that package software and dependencies. 
+   This helps ensure your code runs consistently across different systems. If you're new to Singularity or want 
+   to learn more, see the `official Singularity documentation <https://sylabs.io/guides/>`_.
+
 7. Build the Container Environment (Singularity)
 ------------------------------------------------
 
