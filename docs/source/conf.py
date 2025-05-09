@@ -26,8 +26,8 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx_rtd_theme'
-    'sphinx_copybutton',
+    'sphinx_rtd_theme',
+    'sphinx_copybutton'
 ]
 
 intersphinx_mapping = {
