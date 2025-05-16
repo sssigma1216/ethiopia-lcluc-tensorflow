@@ -11,7 +11,7 @@ Ethiopia LCLUC Documentation
 .. image:: _static/workflow.png
    :alt: VHR to LULC workflow
    :align: center
-   :scale: 100%
+   :scale: 25%
 
 Welcome to the documentation for the Ethiopia LCLUC project.  
 This library has been developed by the NASA GSFC Data Science Group (606.3) to serve as a unified, Python-based framework for processing very high resolution (VHR) remote sensing imagery. Focused on Ethiopia, this toolkit supports land cover land use change (LCLUC) analysis using WorldView imagery.
