@@ -16,57 +16,76 @@ Setup
 
 Before running the pipeline, you'll need to:
 
-1. Navigate to your development directory:
+1. **Navigate to your development directory:**
 
 ::
 
     cd /explore/nobackup/people/$USER/development/
 
-2. Create your output directory:
+2. **Create your output directory:**
+
+This is an example directory name—feel free to use a name that fits your study area and experiment versioning:
 
 ::
 
     mkdir -p sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8
 
-3. Edit the configuration file:
+3. **Edit the configuration file:**
 
-Path to config:
-
-::
-
-    /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml
-
-Edit with:
+Open the configuration file using `nano`:
 
 ::
 
-    nano composite_ethiopia_epoch1.yaml
+    nano /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml
 
-Key fields to update:
+Update the following fields:
 
-::
+- **Set the start and end year:**
 
-    start_year: 2009
-    end_year: 2015
-    output_dir: '/explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8'
+  ::
+
+      start_year: 2009
+      end_year: 2015
+
+- **Set the output directory:**
+
+  ::
+
+      output_dir: '/explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8'
+
+.. note::
+
+   If you're unfamiliar with `nano`:
+
+   - Use **arrow keys** to move around.
+   - Type or delete to make changes.
+   - You can paste with **Shift+Insert** or **right-click** (depending on your terminal).
+   - Press `Ctrl+O`, then `Enter` to save.
+   - Press `Ctrl+X` to exit.
+   - To search, press `Ctrl+W` and type a keyword like `output_dir`.
 
 Step 1: Build Footprints
 ------------------------
 
-Run:
+Run the following command to generate the initial footprint layer:
 
 ::
 
-    singularity exec \
-      --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" \  # Set environment path
-      --nv \  # Enable GPU support
-      -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects \  # Bind mounts
-      /lscratch/$USER/container/tensorflow-caney \  # Container path
-      python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py \  # Script
-      -c /explore/nobackup/people/$USER/development/config/composite_ethiopia_epoch1.yaml \  # Config
-      -s build_footprints  # Step
+    singularity exec --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" --nv -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/$USER/container/tensorflow-caney python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py -c /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml -s build_footprints
 
-Expected log snippet::
+.. note::
+
+   Breakdown of the command:
+
+   - `--env PYTHONPATH=...`: Sets the Python import paths.
+   - `--nv`: Enables GPU access inside the container.
+   - `-B ...`: Binds required filesystem paths.
+   - `-c`: Path to your configuration file.
+   - `-s build_footprints`: Runs the footprint-building stage.
+
+Expected output:
+
+::
 
     INFO; Found 2144 tifs to process.
     INFO; Created 2,144 records
@@ -76,20 +95,19 @@ Expected log snippet::
 Step 2: Extract Metadata
 ------------------------
 
-Run:
+Run the following command to extract metadata from the footprints:
 
 ::
 
-    singularity exec \
-      --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" \  # Set environment path
-      --nv \  # Enable GPU support
-      -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects \  # Bind mounts
-      /lscratch/$USER/container/tensorflow-caney \  # Container path
-      python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py \  # Script
-      -c /explore/nobackup/people/$USER/development/config/composite_ethiopia_epoch1.yaml \  # Config
-      -s extract_metadata  # Step
+    singularity exec --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" --nv -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/$USER/container/tensorflow-caney python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py -c /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml -s extract_metadata
 
-Expected log snippet::
+.. note::
+
+   The `-s extract_metadata` flag runs the metadata extraction stage.
+
+Expected output:
+
+::
 
     INFO; Created 39,367 records
     INFO; Saved .../Amhara_M1BS_griddedToa_metadata.gpkg
@@ -98,33 +116,32 @@ Expected log snippet::
 Step 3: Build Composite
 -----------------------
 
-Before running the composite step, you'll need a tile list. Tile lists specify the tiles to be processed and are located in:
+.. note::
+
+   This step shows how to run compositing for a **single tile list**, which is useful for verifying your setup interactively.  
+   If you want to composite **all tile lists**, see the batch mode section below.
+
+Before running the composite step, you'll need a tile list. These are located in:
 
 ::
 
     /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/
 
-For a quick test, you can use:
+To test your setup, use:
 
 ::
 
     test_tile_0.txt  # Contains two tiles to verify your setup
 
-To run this test interactively (within an `salloc` session), use:
+Run:
 
 ::
 
-    singularity exec \
-      --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" \  # Set environment path
-      --nv \  # Enable GPU support
-      -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects \  # Bind mounts
-      /lscratch/$USER/container/tensorflow-caney \  # Container path
-      python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py \  # Script
-      -c /explore/nobackup/people/$USER/development/config/composite_ethiopia_epoch1.yaml \  # Config
-      -t /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/test_tile_0.txt \  # Tile list
-      -s composite  # Step
+    singularity exec --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" --nv -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/$USER/container/tensorflow-caney python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py -c /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml -t /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/test_tile_0.txt -s composite
 
-Expected log snippet::
+Expected output:
+
+::
 
     INFO; Metadata includes 39367 strips.
     INFO; Reducing with multi-mode
@@ -132,90 +149,78 @@ Expected log snippet::
     INFO; Writing class-pct and nobservations .tif
     INFO; Took 1.79 min.
 
-Running in Batch Mode (Optional)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Running in Batch Mode (recommended for many tiles)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To composite many tiles (e.g., all Amhara tiles), it’s better to use a batch approach.
+When compositing a large number of tiles (e.g., for the entire Amhara region), it's more efficient to use **batch submission**. Instead of running each tile manually, this method submits one job per tile list to Slurm—allowing parallel execution.
 
-Tile lists for Amhara are named:
-
-::
-
-    amhara_tiles_*.txt
-
-and are stored in:
-
-::
-
-    /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/
-
-To run them in parallel using Slurm:
-
-1. **Create a scripts directory and navigate into it:**
+1. **Create the batch script:**
 
 ::
 
     mkdir -p /explore/nobackup/people/$USER/development/scripts
     cd /explore/nobackup/people/$USER/development/scripts
+    nano run_composite.sbatch
 
-2. **Create and open a new script file:**
-
-::
-
-    touch run_composites.sh
-    nano run_composites.sh
-
-3. **Paste the following into nano** (use **right-click** or **Shift+Insert** to paste):
+Paste the following:
 
 .. code-block:: bash
 
-   #!/bin/bash
+    #!/bin/bash
 
-   # Ensure log directory exists
-   mkdir -p /explore/nobackup/people/$USER/development/logs
+    TILE_LIST_DIR="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists"
+    CONFIG="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml"
+    SCRIPT="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py"
+    CONTAINER="/lscratch/$USER/container/tensorflow-caney"
+    PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow"
+    BIND_PATHS="$NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects"
 
-   # Submit each tile list as a batch job
-   for tile_file in /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/amhara_tiles_*.txt; do
-       sbatch --mem-per-cpu=32G --gres=gpu:1 -c10 -t05-00:00:00 \
-       --output=/explore/nobackup/people/$USER/development/logs/run_tiles_%j.out \
-       --error=/explore/nobackup/people/$USER/development/logs/run_tiles_%j.err \
-       -J composite \
-       --wrap="singularity exec --env PYTHONPATH='/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow' \
-       --nv -B \$NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects \
-       /explore/nobackup/people/$USER/development/tensorflow-caney \
-       python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py \
-       -c /explore/nobackup/people/$USER/development/config/composite_ethiopia_epoch1.yaml \
-       -t \${tile_file} -s composite"
-   done
+    # Ensure log directory exists
+    mkdir -p /explore/nobackup/people/$USER/development/logs
 
-4. **Save and exit nano:**
+    for TILE_LIST in "$TILE_LIST_DIR"/amhara_tiles_*.txt; do
+      TILE_NAME=$(basename "$TILE_LIST" .txt)
 
-- Press **Ctrl+O** to save, then **Enter** to confirm.
-- Press **Ctrl+X** to exit.
+      sbatch <<EOF
+#!/bin/bash
+#SBATCH --job-name=comp-${TILE_NAME}
+#SBATCH --output=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.out
+#SBATCH --error=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.err
+#SBATCH --time=24:00:00
+#SBATCH --gres=gpu:1
+#SBATCH --mem=32G
+#SBATCH --cpus-per-task=10
 
-5. **Make the script executable and run it:**
+module load singularity
+
+export PYTHONPATH="${PYTHONPATH}"
+
+singularity exec --env PYTHONPATH="${PYTHONPATH}" --nv -B ${BIND_PATHS} "${CONTAINER}" \
+  python "${SCRIPT}" -c "${CONFIG}" -t "${TILE_LIST}" -s composite
+EOF
+
+    done
+
+2. **Submit the batch script:**
 
 ::
 
-    chmod +x run_composites.sh
-    ./run_composites.sh
+    sbatch run_composite.sbatch
 
-Monitoring Job Status
-~~~~~~~~~~~~~~~~~~~~~
-
-Check the status of your jobs with:
+3. **Check the status of your jobs:**
 
 ::
 
     squeue -u $USER
 
-Output and error logs will be stored in:
+Output and error logs will appear in:
 
 ::
 
     /explore/nobackup/people/$USER/development/logs/
-
+    
 Example successful `.out` log snippet::
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Running for tile list: .../amhara_tiles_0.txt
     INFO; Output logs sent to: .../2009.2015/2009.2015.log
@@ -235,13 +240,13 @@ Example successful `.out` log snippet::
 Verifying Outputs
 -----------------
 
-After running the compositing step—whether interactively or using batch mode—you can check the output directory specified in your config file to verify success.
+After running the compositing step—whether interactively or using batch mode—you can check the output directory specified in your configuration file to verify success.
 
 For example, if your `output_dir` is set to:
 
 ::
 
-    /explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-new
+    /explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8
 
 you should expect to see:
 
