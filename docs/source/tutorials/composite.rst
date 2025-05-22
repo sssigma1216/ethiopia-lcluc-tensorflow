@@ -32,7 +32,7 @@ This is an example directory name—feel free to use a name that fits your study
 
 3. **Edit the configuration file:**
 
-Open the configuration file using `nano`:
+Open the configuration file using a text editor, such as `nano`:
 
 ::
 
@@ -55,7 +55,7 @@ Update the following fields:
 
 .. note::
 
-   If you're unfamiliar with `nano`:
+   If you're unfamiliar with using `nano`:
 
    - Use **arrow keys** to move around.
    - Type or delete to make changes.
@@ -83,7 +83,7 @@ Run the following command to generate the initial footprint layer:
    - `-c`: Path to your configuration file.
    - `-s build_footprints`: Runs the footprint-building stage.
 
-Expected output:
+Snippet of expected output:
 
 ::
 
@@ -105,7 +105,7 @@ Run the following command to extract metadata from the footprints:
 
    The `-s extract_metadata` flag runs the metadata extraction stage.
 
-Expected output:
+Snippet of expected output:
 
 ::
 
@@ -139,7 +139,7 @@ Run:
 
     singularity exec --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" --nv -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/$USER/container/tensorflow-caney python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py -c /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml -t /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/test_tile_0.txt -s composite
 
-Expected output:
+Snippet of expected output:
 
 ::
 
@@ -219,7 +219,7 @@ Output and error logs will appear in:
 
     /explore/nobackup/people/$USER/development/logs/
     
-Example successful `.out` log snippet::
+Snippet of an example of a sucessful `.out` log::
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     Running for tile list: .../amhara_tiles_0.txt
@@ -238,7 +238,7 @@ Example successful `.out` log snippet::
     INFO; Tiles provided in amhara_tiles_0: 100
 
 Verifying Outputs
------------------
+-----
 
 After running the compositing step—whether interactively or using batch mode—you can check the output directory specified in your configuration file to verify success.
 
