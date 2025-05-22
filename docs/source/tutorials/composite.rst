@@ -154,14 +154,14 @@ Running in Batch Mode (recommended for many tiles)
 
 When compositing a large number of tiles (e.g., for the entire Amhara region), it's more efficient to use **batch submission**. Instead of running each tile manually, this method submits one job per tile list to Slurm—allowing parallel execution.
 
-1. **Create a scripts directory and navigate into it**
+1. **Create a scripts directory and navigate into it:**
 
 ::
 
     mkdir -p /explore/nobackup/people/$USER/development/scripts
     cd /explore/nobackup/people/$USER/development/scripts
 
-2. **Create and open a new script file**
+2. **Create and open a new script file:**
 
 ::
 
