@@ -154,7 +154,7 @@ Running in Batch Mode (recommended for many tiles)
 
 When compositing a large number of tiles (e.g., for the entire Amhara region), it's more efficient to use **batch submission**. Instead of running each tile manually, this method submits one job per tile list to Slurm—allowing parallel execution.
 
-1. **Create a scripts direcotry and navigate into it**
+1. **Create a scripts directory and navigate into it**
 
 ::
 
@@ -235,7 +235,7 @@ Output and errors logs will be found in the following folder:
 
     /explore/nobackup/people/$USER/development/logs/
     
-Snippet of an example of a sucessful `.out` log:
+Snippet of an example of a successful `.out` log:
 
 ::
 
@@ -253,6 +253,7 @@ Snippet of an example of a sucessful `.out` log:
     INFO; Strips remaining after filters: 16025.
     INFO; Reading tiles from: amhara_tiles_0.txt
     INFO; Tiles provided in amhara_tiles_0: 100
+
 
 .. note::
 
@@ -285,7 +286,7 @@ Verifying Outputs
 After running the compositing step—whether interactively or using batch mode—you can check the output directory specified in your configuration file to verify success.
 
 For example, if your `output_dir` is the default mentioned earlier, navigate to it with:
-
+o
 ::
 
     cd /explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8
