@@ -176,22 +176,22 @@ Paste the following into `run_composite.sbatch`:
       TILE_NAME=$(basename "$TILE_LIST" .txt)
 
       sbatch <<EOF
-#!/bin/bash
-#SBATCH --job-name=comp-${TILE_NAME}
-#SBATCH --output=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.out
-#SBATCH --error=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.err
-#SBATCH --time=24:00:00
-#SBATCH --gres=gpu:1
-#SBATCH --mem=32G
-#SBATCH --cpus-per-task=10
+    #!/bin/bash
+    #SBATCH --job-name=comp-${TILE_NAME}
+    #SBATCH --output=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.out
+    #SBATCH --error=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.err
+    #SBATCH --time=24:00:00
+    #SBATCH --gres=gpu:1
+    #SBATCH --mem=32G
+    #SBATCH --cpus-per-task=10
 
-module load singularity
+    module load singularity
 
-export PYTHONPATH="${PYTHONPATH}"
+    export PYTHONPATH="${PYTHONPATH}"
 
-singularity exec --env PYTHONPATH="${PYTHONPATH}" --nv -B ${BIND_PATHS} "${CONTAINER}" \
-  python "${SCRIPT}" -c "${CONFIG}" -t "${TILE_LIST}" -s composite
-EOF
+    singularity exec --env PYTHONPATH="${PYTHONPATH}" --nv -B ${BIND_PATHS} "${CONTAINER}" \
+      python "${SCRIPT}" -c "${CONFIG}" -t "${TILE_LIST}" -s composite
+    EOF
 
     done
     
