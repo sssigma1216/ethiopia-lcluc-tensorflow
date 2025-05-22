@@ -154,9 +154,22 @@ Running in Batch Mode (recommended for many tiles)
 
 When compositing a large number of tiles (e.g., for the entire Amhara region), it's more efficient to use **batch submission**. Instead of running each tile manually, this method submits one job per tile list to Slurm—allowing parallel execution.
 
-1. **Create the batch script:**
+1. **Create a scripts direcotry and navigate into it**
 
-Paste the following into `run_composite.sbatch`:
+::
+
+    mkdir -p /explore/nobackup/people/$USER/development/scripts
+    cd /explore/nobackup/people/$USER/development/scripts
+
+2. **Create and open a new script file**
+
+::
+
+    touch run_composite.sbatch
+    nano run_composite.sbatch
+
+
+3. **Paste the following into `run_composite.sbatch`:**
 
 ::
 
@@ -195,20 +208,28 @@ Paste the following into `run_composite.sbatch`:
     EOF
 
     done
+
+4. **Save and exit nano:**
+
+- Press **Ctrl+O** to save, then **Enter** to confirm.
+- Press **Ctrl+X** to exit.
     
-2. **Submit the batch script:**
+5. **Submit the batch script:**
 
 ::
 
     sbatch run_composite.sbatch
 
-3. **Check the status of your jobs:**
+Monitoring Job Status
+~~~~~~~~~~~~~~~~~~~~~
+
+Check the status of your jobs with:
 
 ::
 
     squeue -u $USER
 
-Output and error logs will appear in:
+Output and errors logs will be found in the following folder:
 
 ::
 
@@ -232,6 +253,31 @@ Snippet of an example of a sucessful `.out` log:
     INFO; Strips remaining after filters: 16025.
     INFO; Reading tiles from: amhara_tiles_0.txt
     INFO; Tiles provided in amhara_tiles_0: 100
+
+.. note::
+
+   To view your job output logs:
+
+   - First, list the log files in your ``logs/`` directory:
+
+     ::
+
+         ls /explore/nobackup/people/$USER/development/logs/
+
+   - Then view the contents of a specific ``.out`` file using:
+
+     ::
+
+         cat <filename>.out
+
+   - If the file is long, preview just the **first 30 lines** with:
+
+     ::
+
+         head -n 30 <filename>.out
+
+   Replace ``<filename>.out`` with the actual name of the log file you want to inspect, such as ``amhara_tiles_0_123456.out``.
+
 
 Verifying Outputs
 -----
