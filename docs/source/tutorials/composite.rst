@@ -124,19 +124,11 @@ Step 3: Build Composite
 
    ➤ Skip to :ref:`batch_mode_section` if you're ready to run on all tiles.
 
-First, locate the tile list configuration files:
+Lists of the tiles for the Amhara region can be found found in  ``/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/``.
 
-::
+To test your setup, we will use ``test_tile_0.txt`` which contains just two tiles.
 
-    /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/
-
-To test with a minimal tile list:
-
-::
-
-    test_tile_0.txt  # Contains two tiles to verify your setup
-
-Run the composite step for this list using:
+Run the composite step for this list:
 
 ::
 
