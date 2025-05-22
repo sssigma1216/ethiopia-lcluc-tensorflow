@@ -156,13 +156,7 @@ When compositing a large number of tiles (e.g., for the entire Amhara region), i
 
 1. **Create the batch script:**
 
-::
-
-    mkdir -p /explore/nobackup/people/$USER/development/scripts
-    cd /explore/nobackup/people/$USER/development/scripts
-    nano run_composite.sbatch
-
-Paste the following:
+Paste the following into `run_composite.sbatch`:
 
 .. code-block:: bash
 
@@ -200,7 +194,7 @@ singularity exec --env PYTHONPATH="${PYTHONPATH}" --nv -B ${BIND_PATHS} "${CONTA
 EOF
 
     done
-
+    
 2. **Submit the batch script:**
 
 ::
