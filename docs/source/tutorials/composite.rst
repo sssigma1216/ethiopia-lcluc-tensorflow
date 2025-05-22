@@ -158,7 +158,7 @@ When compositing a large number of tiles (e.g., for the entire Amhara region), i
 
 Paste the following into `run_composite.sbatch`:
 
-.. code-block:: bash
+::
 
     #!/bin/bash
 
@@ -176,6 +176,7 @@ Paste the following into `run_composite.sbatch`:
       TILE_NAME=$(basename "$TILE_LIST" .txt)
 
       sbatch <<EOF
+      
     #!/bin/bash
     #SBATCH --job-name=comp-${TILE_NAME}
     #SBATCH --output=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.out
