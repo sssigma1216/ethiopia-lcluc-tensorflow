@@ -116,30 +116,33 @@ Snippet of expected output:
 Step 3: Build Composite
 -----------------------
 
-.. note::
+.. admonition:: Optional – Quick Test Before Full Run
+   :class: tip
 
-   This step shows how to run compositing for a **single tile list**, which is useful for verifying your setup interactively.  
-   If you want to composite **all tile lists**, see the batch mode section below.
+   This step is **optional**, but recommended to **verify your setup** before running a full batch job.  
+   You'll use a **test tile list** with only two tiles for quick validation.
 
-Before running the composite step, you'll need a tile list. These are located in:
+   ➤ Skip to :ref:`batch_mode_section` if you're ready to run on all tiles.
+
+First, locate the tile list configuration files:
 
 ::
 
     /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/
 
-To test your setup, use:
+To test with a minimal tile list:
 
 ::
 
     test_tile_0.txt  # Contains two tiles to verify your setup
 
-Run:
+Run the composite step for this list using:
 
 ::
 
     singularity exec --env PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow" --nv -B $NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/$USER/container/tensorflow-caney python /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py -c /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml -t /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/test_tile_0.txt -s composite
 
-Snippet of expected output:
+Expected output:
 
 ::
 
@@ -148,6 +151,8 @@ Snippet of expected output:
     INFO; Writing warped to .tif: .../Amhara.M1BS.h26v42.2009.2015.mode.tif
     INFO; Writing class-pct and nobservations .tif
     INFO; Took 1.79 min.
+
+.. _batch_mode_section:
 
 Running in Batch Mode (recommended for many tiles)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -165,48 +170,32 @@ When compositing a large number of tiles (e.g., for the entire Amhara region), i
 
 ::
 
-    touch run_composite.sbatch
-    nano run_composite.sbatch
+    touch run_composite.sh
+    nano run_composite.sh
 
 
-3. **Paste the following into `run_composite.sbatch`:**
+3. **Paste the following into `run_composite.sh`:**
 
 ::
 
     #!/bin/bash
 
-    TILE_LIST_DIR="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists"
-    CONFIG="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml"
-    SCRIPT="/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py"
-    CONTAINER="/lscratch/$USER/container/tensorflow-caney"
-    PYTHONPATH="/explore/nobackup/people/$USER/development/vhr-composite:/explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow"
-    BIND_PATHS="$NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects"
-
-    # Ensure log directory exists
+    
     mkdir -p /explore/nobackup/people/$USER/development/logs
 
-    for TILE_LIST in "$TILE_LIST_DIR"/amhara_tiles_*.txt; do
-      TILE_NAME=$(basename "$TILE_LIST" .txt)
-
-      sbatch <<EOF
-      
-    #!/bin/bash
-    #SBATCH --job-name=comp-${TILE_NAME}
-    #SBATCH --output=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.out
-    #SBATCH --error=/explore/nobackup/people/$USER/development/logs/${TILE_NAME}_%j.err
-    #SBATCH --time=24:00:00
-    #SBATCH --gres=gpu:1
-    #SBATCH --mem=32G
-    #SBATCH --cpus-per-task=10
-
-    module load singularity
-
-    export PYTHONPATH="${PYTHONPATH}"
-
-    singularity exec --env PYTHONPATH="${PYTHONPATH}" --nv -B ${BIND_PATHS} "${CONTAINER}" \
-      python "${SCRIPT}" -c "${CONFIG}" -t "${TILE_LIST}" -s composite
+    for tile_file in /explore/nobackup/people/$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/tile_lists/amhara_tiles_*.txt; do
+        sbatch --mem-per-cpu=32G --gres=gpu:1 -c10 -t05-00:00:00 \
+        --output=/explore/nobackup/people/$USER/development/logs/run_tiles_%j.out \
+        --error=/explore/nobackup/people/$USER/development/logs/run_tiles_%j.err \
+        -J composite \
+        --wrap="$(cat <<EOF
+    singularity exec --env PYTHONPATH="/explore/nobackup/people/\$USER/development/vhr-composite:/explore/nobackup/people/\$USER/development/ethiopia-lcluc-tensorflow" \
+    --nv -B \$NOBACKUP,/lscratch,/explore/nobackup/people,/explore/nobackup/projects,/panfs/ccds02/nobackup/projects /lscratch/\$USER/container/tensorflow-caney \
+    python /explore/nobackup/people/\$USER/development/ethiopia-lcluc-tensorflow/ethiopia_lcluc_tensorflow/view/landcover_composite_pipeline_cli.py \
+    -c /explore/nobackup/people/\$USER/development/ethiopia-lcluc-tensorflow/projects/composite/configs/dev/composite_ethiopia_epoch1.yaml \
+    -t ${tile_file} -s composite
     EOF
-
+    )"
     done
 
 4. **Save and exit nano:**
@@ -214,11 +203,11 @@ When compositing a large number of tiles (e.g., for the entire Amhara region), i
 - Press **Ctrl+O** to save, then **Enter** to confirm.
 - Press **Ctrl+X** to exit.
     
-5. **Submit the batch script:**
+5. **Run the script:**
 
 ::
 
-    sbatch run_composite.sbatch
+    bash run_composite.sh
 
 Monitoring Job Status
 ~~~~~~~~~~~~~~~~~~~~~
