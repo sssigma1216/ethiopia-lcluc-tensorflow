@@ -87,19 +87,29 @@ Containers allow for reproducible software environments. On ADAPT, it's best to 
 .. note::
    Files in `/lscratch` may be deleted when your job ends.
 
-- First, create your personal `lscratch` directory:
+.. warning::
+   You **must** be on a GPU node *and* have an active Slurm job (e.g., requested via ``salloc``) to access ``/lscratch``.  
+   Attempting to access or create directories in ``/lscratch`` **without** this may result in a ``Permission denied`` error.
+
+- First, create your personal container directory structure in `/lscratch`:
 
   .. code-block:: bash
 
-     mkdir -p /lscratch/$USER
+     mkdir -p /lscratch/$USER/container
 
-- Then build the TensorFlow container into a writable sandbox:
+- Then build the **Ethiopia LCLUC TensorFlow** container into a writable sandbox:
 
   .. code-block:: bash
 
      singularity build --sandbox /lscratch/$USER/container/ethiopia-lcluc-tensorflow docker://nasanccs/ethiopia-lcluc-tensorflow:latest
 
-This pulls the latest container image from Docker Hub and builds it as a writable sandbox.
+- Also build the **TensorFlow Caney** container:
+
+  .. code-block:: bash
+
+     singularity build --sandbox /lscratch/$USER/container/tensorflow-caney docker://nasanccs/tensorflow-caney:latest
+
+These commands pull the latest container images from Docker Hub and build them into writable sandboxes under your personal scratch space.
 
 Bonus Tips
 ----------
@@ -178,3 +188,4 @@ Advanced screen commands:
 
 .. seealso::
    Full GNU Screen manual: https://www.gnu.org/software/screen/manual/screen.txt/
+
