@@ -62,7 +62,7 @@ Navigate to your development directory and clone the repositories:
 
    cd /explore/nobackup/people/$USER/development
    git clone https://github.com/nasa-nccs-hpda/ethiopia-lcluc-tensorflow
-   git clone https://github.com/nasa-nccs-hpda/vhr-composite
+   git clone https://github.com/nasa-nccs-hpda/vhr-composite --branch general-composite-methods
 
 6. Load Required Module(s)
 --------------------------
