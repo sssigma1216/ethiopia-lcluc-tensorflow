@@ -366,7 +366,7 @@ class LandCoverCompositePipeline(object):
                 bad = pd.DataFrame(columns=metadata_per_tile_fltrd.columns)
 
             logging.info(
-                f'Paths for filtered strips:\n {good['toa_path'].values}')
+               f"Paths for filtered strips:\n {good['toa_path'].values}"
 
             # When filling holes we want to start with the "best" of the bad
             # i.e. the lowest soil moisture first
