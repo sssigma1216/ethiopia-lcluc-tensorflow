@@ -214,8 +214,9 @@ Output and error logs will appear in:
 
     /explore/nobackup/people/$USER/development/logs/
     
-Snippet of an example of a sucessful `.out` log::
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Snippet of an example of a sucessful `.out` log:
+
+::
 
     Running for tile list: .../amhara_tiles_0.txt
     INFO; Output logs sent to: .../2009.2015/2009.2015.log
@@ -237,13 +238,19 @@ Verifying Outputs
 
 After running the compositing step—whether interactively or using batch mode—you can check the output directory specified in your configuration file to verify success.
 
-For example, if your `output_dir` is set to:
+For example, if your `output_dir` is the default mentioned earlier, navigate to it with:
 
 ::
 
-    /explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8
+    cd /explore/nobackup/people/$USER/development/sample_data/ethiopia/cnn_landcover_composite/ethiopia-v8
 
-you should expect to see:
+List the files in the folder:
+
+::
+
+   ls
+
+You should expect to see:
 
 1. A `.gpkg` file for each tile list that was processed:
 
@@ -251,13 +258,25 @@ you should expect to see:
 
     Amhara-otcb.v11-qaTest1-Amhara.M1BS-amhara_tiles_0.gpkg
 
-2. A subfolder named after the year range you configured:
+2. A subfolder named after the year range you configured, such as:
 
 ::
 
-    /explore/.../2009.2015/
+   2009.2015/
 
-Inside that folder, for each tile (e.g., `h31v12`), look for these output `.tif` files:
+If you go inside that folder, for example with:
+
+::
+
+    cd 2009.2015
+    
+And list the files:
+
+::
+
+   ls
+
+For each tile (e.g., `h31v12`), look for similar output `.tif` files:
 
 ::
 
